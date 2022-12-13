@@ -20,4 +20,11 @@ class Quiz extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function instances()
+    {
+        return $this->belongsToMany(User::class, 'quiz_instances', 'quiz_id', 'user_id')
+            ->withPivot('current_question_id', 'answers')
+            ->withTimestamps();
+    }
 }
