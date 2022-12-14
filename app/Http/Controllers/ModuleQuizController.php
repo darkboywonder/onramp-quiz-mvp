@@ -11,16 +11,13 @@ class ModuleQuizController extends Controller
 {
     public function show(Module $module)
     {
-        // just temp manually authenticate user if none
-        if (! auth()->user()) {
-            Auth::login(User::first());
-        }
-
-        $quiz = auth()->user()->quizzes()->find($module->quiz->id);
+        $user = auth()->user();
+        $quiz = $user->quizzes()->find($module->quiz->id);
 
         // if no quiz instance found for user, create one
         if (! $quiz) {
-            $quiz = auth()->user()->quizzes()->attach($module->quiz->id);
+            $user->quizzes()->attach($module->quiz->id);
+            $quiz = $user->quizzes()->find($module->quiz->id);
         }
 
         return view('module.quiz.show', [
