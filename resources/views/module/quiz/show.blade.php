@@ -28,3 +28,5 @@
 @error('answer')
   <p>Sorry, try again.</p>
 @enderror
+
+<a href="{{ route('module.index') }}">Back To Modules</a>
