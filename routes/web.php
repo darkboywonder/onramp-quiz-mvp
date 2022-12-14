@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GitTestController;
+use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\ModuleQuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,12 @@ Route::get('git-test', function () {
 
 Route::get('/', function () {
     return view('test');
+});
+
+Route::prefix('modules')->name('module.')->group(function () {
+    Route::get('/', [ModuleController::class, 'index'])->name('index');
+
+    Route::get('{module}/quiz', [ModuleQuizController::class, 'show'])->name('quiz.show');
 });
 
 Route::post('git-clone-test', [GitTestController::class, 'cloneTestCheck'])->name('git-clone-test.check');

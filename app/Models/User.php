@@ -47,6 +47,7 @@ class User extends Authenticatable
     public function quizzes()
     {
         return $this->belongsToMany(Quiz::class, 'quiz_instances')
+            ->as('instance')
             ->withPivot('current_question_id', 'answers')
             ->withTimestamps();
     }
